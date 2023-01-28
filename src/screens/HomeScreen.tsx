@@ -8,18 +8,14 @@ import {
   Fab,
   Icon,
   Input,
-  Spinner,
   HStack,
-  IconButton,
-  KeyboardAvoidingView,
-  ScrollView,
 } from "native-base";
 import { Feather, Entypo } from "@expo/vector-icons";
 import * as SQLite from "expo-sqlite";
-import { ActivityIndicator, Platform } from "react-native";
+import { ActivityIndicator, Platform, StyleSheet } from "react-native";
 import { Task } from "../utils/types";
 import TaskItem from "../components/TaskItem";
-// import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function HomeScreen({ navigation }: any) {
   const db = SQLite.openDatabase("tasks.db");
@@ -52,7 +48,7 @@ export default function HomeScreen({ navigation }: any) {
     setIsLoading(false);
   }, []);
 
-  const addName = () => {
+  const addTask = () => {
     db.transaction((tx) => {
       tx.executeSql(
         "INSERT INTO tasks (title) values(?)",
@@ -128,10 +124,12 @@ export default function HomeScreen({ navigation }: any) {
         <Box w="full" h="full" bg="gray.100">
           {isVisible === true ? (
             <Input
-              bg="white"
-              p={4}
+              bg="none"
+              p={1.5}
               borderWidth={0}
-              rounded="md"
+              borderBottomColor="gray.400"
+              borderBottomWidth={1}
+              _focus={{ bg: "none", borderBottomColor: "darkBlue.800" }}
               mt={4}
               ml={3}
               mr={3}
@@ -144,7 +142,7 @@ export default function HomeScreen({ navigation }: any) {
           ) : (
             <></>
           )}
-          <ScrollView ref={scrollRef} p={3} h="full" w="full">
+          <ScrollView ref={scrollRef} style={styles.scrollView}>
             {isLoading === true ? (
               // <Spinner size={10} borderColor="darkBlue.800" />
               <ActivityIndicator size={10} />
@@ -169,7 +167,7 @@ export default function HomeScreen({ navigation }: any) {
             p={5}
             onPress={() => {
               isVisible === true
-                ? (addName(), setIsVisible(false))
+                ? (addTask(), setIsVisible(false))
                 : setIsVisible(true);
             }}
             icon={
@@ -185,3 +183,9 @@ export default function HomeScreen({ navigation }: any) {
     </Box>
   );
 }
+
+const styles = StyleSheet.create({
+  scrollView: {
+    padding: 5,
+  },
+});

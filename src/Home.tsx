@@ -18,7 +18,7 @@ export default function Home() {
       }}
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="AccountScreen" component={AccountScreen} />
+      <Drawer.Screen name="Account" component={AccountScreen} />
       <Drawer.Screen name="About" component={AboutScreen} />
     </Drawer.Navigator>
   );

@@ -33,7 +33,7 @@ export default function TaskItem({
 }: TaskItemProps) {
   const translateX = useSharedValue(0);
   const itemHeight = useSharedValue(LIST_ITEM_HEIGHT);
-  const marginVertical = useSharedValue(10);
+  const marginVertical = useSharedValue(22);
   const opacity = useSharedValue(1);
 
   const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   taskContainer: {
     width: "100%",
     alignItems: "center",
+    padding: 6,
   },
   taskItem: {
     width: "100%",
